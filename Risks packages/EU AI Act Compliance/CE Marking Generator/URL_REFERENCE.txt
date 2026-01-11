@@ -1,2 +1,0 @@
-Tool: CE Marking Generator
-URL: https://ce-marking.help/

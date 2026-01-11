@@ -1,9 +1,0 @@
-capacity:
-  - -500
-  - 500
-lonlat:
-  - -5.428149
-  - 54.87826
-parsers:
-  exchange: SMARTGRIDDASHBOARD.fetch_exchange
-rotation: -110

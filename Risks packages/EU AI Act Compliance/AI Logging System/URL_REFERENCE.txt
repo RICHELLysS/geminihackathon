@@ -1,2 +1,0 @@
-Tool: AI Logging System
-URL: https://grafana.com/oss/loki/

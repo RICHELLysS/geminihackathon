@@ -1,2 +1,0 @@
-Tool: WattTime Carbon Calculator
-URL: https://api.watttime.org/

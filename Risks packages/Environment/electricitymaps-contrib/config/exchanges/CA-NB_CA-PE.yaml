@@ -1,6 +1,0 @@
-lonlat:
-  - -64.5739
-  - 46.7349
-parsers:
-  exchange: PrinceEdwardIsland.fetch_exchange
-rotation: 90

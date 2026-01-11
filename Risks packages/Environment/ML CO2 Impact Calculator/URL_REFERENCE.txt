@@ -1,2 +1,0 @@
-Tool: ML CO2 Impact Calculator
-URL: https://mlco2.github.io/impact/
