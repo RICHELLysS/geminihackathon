@@ -19,5 +19,7 @@ Copy this checklist to track progress:
 
 ```
 AI Testing Progress:
-- [ ] Step 1: Integrate existing LLM-based system into Deepeval Framework
+- [ ] Step 1: Integrate existing LLM-based system into Deepeval Framework, use template/red_team.py as template
+- [ ] Step 2: Run Test case
+- [ ] Step 3: Generate structured fact-check report, save as a markdown
 ```
