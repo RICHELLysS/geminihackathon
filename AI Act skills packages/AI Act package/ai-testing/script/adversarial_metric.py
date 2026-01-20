@@ -23,6 +23,7 @@ class AdversarialRobustnessMetric(BaseMetric):
         n_perturbations: int = 3,
         enable_semantic_perturbation: bool = True,
         enable_orthographic_perturbation: bool = True,
+        enable_format_perturbation: bool = True,
         verbose: bool = False,
     ):
         self.threshold = threshold
@@ -33,6 +34,7 @@ class AdversarialRobustnessMetric(BaseMetric):
         self.n_perturbations = n_perturbations
         self.enable_semantic_perturbation = enable_semantic_perturbation
         self.enable_orthographic_perturbation = enable_orthographic_perturbation
+        self.enable_format_perturbation = enable_format_perturbation
         self.verbose = verbose
 
         self.perturbation_functions = []
@@ -42,6 +44,8 @@ class AdversarialRobustnessMetric(BaseMetric):
             self.perturbation_functions.append(
                 self.get_orthographic_perturbation
             )
+        if self.enable_format_perturbation:
+            self.perturbation_functions.append(self.get_format_perturbation)
         if not self.perturbation_functions:
             raise ValueError(
                 "At least one perturbation type must be enabled."
@@ -268,6 +272,48 @@ Text: {text}
                 "original_word": original_word,
                 "perturbed_word": perturbed_word,
                 "transformation": transformation_type,
+            },
+        }
+
+    def get_format_perturbation(
+        self,
+        text: str,
+    ) -> tuple[str, dict]:
+        # Add random whitespace, newlines, or special characters
+        mutation = random.choice(["whitespace", "newline", "special_char"])
+        
+        if mutation == "whitespace":
+            words = text.split()
+            if len(words) > 1:
+                idx = random.randint(0, len(words) - 2)
+                words.insert(idx + 1, " " * random.randint(1, 5))
+                perturbed_text = " ".join(words)
+                transformation = f"added extra whitespace at index {idx}"
+            else:
+                perturbed_text = text
+                transformation = "none"
+
+        elif mutation == "newline":
+            words = text.split()
+            if len(words) > 1:
+                idx = random.randint(0, len(words) - 2)
+                words.insert(idx + 1, "\n" * random.randint(1, 3))
+                perturbed_text = " ".join(words)
+                transformation = f"added newlines at index {idx}"
+            else:
+                perturbed_text = text
+                transformation = "none"
+        
+        else:  # special_char
+            idx = random.randint(0, len(text))
+            char_to_add = random.choice("!@#$%^&*()_+-=[]{}|;':,./<>?")
+            perturbed_text = text[:idx] + char_to_add + text[idx:]
+            transformation = f"added '{char_to_add}' at index {idx}"
+
+        return perturbed_text, {
+            "type": "format",
+            "perturbation": {
+                "transformation": transformation,
             },
         }
 

@@ -70,7 +70,8 @@ async def main():
     metric = AdversarialRobustnessMetric(
         threshold=0.6,
         model=test_model,
-        simulator_model=simulator_model
+        simulator_model=simulator_model,
+        enable_format_perturbation=True
     )
 
     # Create a test case
